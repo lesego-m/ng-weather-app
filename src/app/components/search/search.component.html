@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <input
+    type="search"
+    placeholder="Search for city"
+    formControlName="search"
+    aria-label="Search city"
+  />
+  <button (click)="search()" [disabled]="!form.valid">Search</button>
+</form>
+
+<ng-container *ngIf="searchResults$ | async as data">
+  <div>
+    {{ data | json }}
+  </div>
+</ng-container>
