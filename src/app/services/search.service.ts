@@ -11,7 +11,7 @@ export class SearchService {
 
   private readonly API_key: string = Api.KEY;
   private readonly WEATHER_API: string = Api.URL;
-  public timezone!: number | undefined;
+  public timezone!: number;
   constructor(private http: HttpClient) { }
 
   public searchByCity(city: string): Observable<Coodinates> {
@@ -20,7 +20,7 @@ export class SearchService {
 
     return this.http.get<CoodinatesResponse>(`${this.WEATHER_API}/weather`, { params: searchParameters }).pipe(
       tap(res => this.timezone = res['timezone']),
-      map(res => res?.coord), // Recommended replacement for pluck as per rxjs docs since pluck is soon to be depreciated
+      map(res => res.coord),
       catchError(this.handleError),
       tap(console.log),
       shareReplay()
@@ -31,7 +31,7 @@ export class SearchService {
     const searchParameters = new HttpParams().set('lon', coords.lon).set('lat', coords.lat).set('exclude', 'current, minutely, hourly, alerts').set('appid', this.API_key);
 
     return this.http.get<WeatherResponse>(`${this.WEATHER_API}/onecall`, { params: searchParameters }).pipe(
-      map(res => res?.daily.slice(0, 5).map((data: DailyWeather) => this.getFilteredData(data))),
+      map(res => res.daily.slice(0, 5).map((data: DailyWeather) => this.getFilteredData(data))),
       // map(res => res?.daily),
       // filter((day, idx) => { if(idx < 5) return day; }),
       catchError(this.handleError),

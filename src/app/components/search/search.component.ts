@@ -15,7 +15,7 @@ import { getCurrentLocation } from 'src/app/shared';
 export class SearchComponent implements OnInit {
 
   public searchResults$!: Observable<DailyWeather[]>;
-  public timeZone: string | undefined = this.searchService.timezone?.toString();
+  public timeZone: string = this.searchService.timezone?.toString();
 
   public form: FormGroup = this.formBuilder.group({
     search: ['', [Validators.required, Validators.pattern(/^[a-z\sA-Z]+$/)]]

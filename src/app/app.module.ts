@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './components/search/search.component';
 import { InternationalDatePipe } from './pipes/internationalDatePipe.pipe';
+import { TemperaturePipe } from './pipes/temperature.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    InternationalDatePipe
+    InternationalDatePipe,
+    TemperaturePipe
   ],
   imports: [
     BrowserModule,
