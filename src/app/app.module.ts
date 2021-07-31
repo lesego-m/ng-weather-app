@@ -6,11 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './components/search/search.component';
+import { InternationalDatePipe } from './pipes/internationalDatePipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    InternationalDatePipe
   ],
   imports: [
     BrowserModule,

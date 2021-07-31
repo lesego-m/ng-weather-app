@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 
 import { DailyWeather } from 'src/app/models';
 import { SearchService } from 'src/app/services/search.service';
@@ -14,27 +14,18 @@ import { getCurrentLocation } from 'src/app/shared';
 })
 export class SearchComponent implements OnInit {
 
-  public searchResults$!: Observable<DailyWeather>;
+  public searchResults$!: Observable<DailyWeather[]>;
+  public timeZone: string | undefined = this.searchService.timezone?.toString();
 
   public form: FormGroup = this.formBuilder.group({
     search: ['', [Validators.required, Validators.pattern(/^[a-z\sA-Z]+$/)]]
   });
 
-
-  private global!: () => void;
-
-  constructor(
-    private searchService: SearchService,
-    private formBuilder: FormBuilder,
-    private renderer: Renderer2) {
+  constructor(private searchService: SearchService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    getCurrentLocation(this.searchService); // TODO: figure out how to refactor so that you can unsubscribe front the observables in the function
-  }
-
-  ngOnDestroy(): void {
-    this.global();
+    this.searchResults$ = getCurrentLocation(this.searchService);
   }
 
   search(): void {
@@ -44,10 +35,5 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  // searchByCity(): Observable<DailyWeather> {
-  //   return this.searchByCity$.pipe(
-  //     concatMap(coords => this.searchService.searchByCoodinates(coords))
-  //   );
-  // }
   //this.messages.showErrors(errorMessage); ---
 }
