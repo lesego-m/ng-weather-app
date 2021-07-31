@@ -1,6 +1,6 @@
-export interface CoodinatesResponse {
+export interface CoodinatesResponse { // TODO: rename interface since timezone has been added
     coord: Coodinates;
-    timezone?: number | undefined;
+    timezone: number;
 }
 
 export interface Coodinates {

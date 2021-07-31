@@ -1,6 +1,6 @@
 export interface DailyWeather {
     [x: string]: any;
-    dt?: number;
+    dt: number;
     sunrise?: number;
     sunset?: number;
     moonrise?: number;

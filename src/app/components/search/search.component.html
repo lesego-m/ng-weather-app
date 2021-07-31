@@ -21,7 +21,11 @@
 <ng-container *ngIf="searchResults$ | async as days">
   <ul>
     <li *ngFor="let day of days; first as isFirst">
-      {{ day.dt | internationalDate: timeZone | date: "EE, d MMM" }}
+      <p>
+        {{ day.dt | internationalDate: timeZone | date: "EE, d MMM" }}
+      </p>
+      <p>Max: {{ day.temp.max | temperature: "C" }}&deg;</p>
+      <p>Min: {{ day.temp.min | temperature: "C" }}&deg;</p>
     </li>
   </ul>
 </ng-container>

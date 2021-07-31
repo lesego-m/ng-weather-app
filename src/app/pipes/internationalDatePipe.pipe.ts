@@ -4,11 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'internationalDate'
 })
 export class InternationalDatePipe implements PipeTransform {
-    transform(unix_timestamp: number | any, timezone: number | any): string {
+    transform(unix_timestamp: number, timezone: string): string {
         const date = new Date(unix_timestamp * 1000);
-        const shortDateOptions: any = {
+        const options = {
             timeZone: timezone
         };
-        return new Intl.DateTimeFormat('default', shortDateOptions).format(date);
+        return new Intl.DateTimeFormat('default', options).format(date);
     }
 }
