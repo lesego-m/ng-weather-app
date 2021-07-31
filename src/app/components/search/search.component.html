@@ -18,14 +18,24 @@
   </div>
 </form>
 
-<ng-container *ngIf="searchResults$ | async as days">
-  <ul>
-    <li *ngFor="let day of days; first as isFirst">
-      <p>
-        {{ day.dt | internationalDate: timeZone | date: "EE, d MMM" }}
-      </p>
-      <p>Max: {{ day.temp.max | temperature: "C" }}&deg;</p>
-      <p>Min: {{ day.temp.min | temperature: "C" }}&deg;</p>
+<section class="p-5" *ngIf="searchResults$ | async as days">
+  <ul class="list-unstyled row">
+    <li *ngFor="let day of days; first as isFirst" class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{
+              isFirst
+                ? "Today"
+                : (day.dt | internationalDate: timeZone | date: "EE, d")
+            }}
+          </h5>
+          <p>
+            <strong> {{ day.temp.max | temperature: "C" }}&deg;</strong><br />
+            {{ day.temp.min | temperature: "C" }}&deg;
+          </p>
+        </div>
+      </div>
     </li>
   </ul>
-</ng-container>
+</section>
