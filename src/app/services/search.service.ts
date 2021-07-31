@@ -1,41 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
-import { WeatherResponse, DailyWeather, CoodinatesResponse, Coodinates, Api } from '../models';
+import { catchError, map, shareReplay } from 'rxjs/operators';
+import { WeatherApiResponse, ForecastAndTimezone, Coodinates } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  private readonly API_key: string = Api.KEY;
-  private readonly WEATHER_API: string = Api.URL;
-  public timezone!: number;
+  private readonly API_key: string = environment.Api.KEY;
+  private readonly WEATHER_API: string = environment.Api.URL;
+
   constructor(private http: HttpClient) { }
 
-  public searchByCity(city: string): Observable<Coodinates> {
+  public weatherSearch(search: string | Coodinates): Observable<ForecastAndTimezone> {
+    const cityNameOrCoords = typeof search === 'string' ? { q: search } : { ...search } = search;
+    const searchParameters = new HttpParams().appendAll({ ...cityNameOrCoords, 'appid': this.API_key });
 
-    const searchParameters = new HttpParams().set('q', city).set('appid', this.API_key);
-
-    return this.http.get<CoodinatesResponse>(`${this.WEATHER_API}/weather`, { params: searchParameters }).pipe(
-      tap(res => this.timezone = res['timezone']),
-      map(res => res.coord),
+    return this.http.get<WeatherApiResponse>(`${this.WEATHER_API}/forecast?`, { params: searchParameters }).pipe(
+      map(this.getFilteredData),
       catchError(this.handleError),
-      tap(console.log),
-      shareReplay()
-    );
-  }
-
-  public searchByCoodinates(coords: Coodinates): Observable<DailyWeather[]> {
-    const searchParameters = new HttpParams().set('lon', coords.lon).set('lat', coords.lat).set('exclude', 'current, minutely, hourly, alerts').set('appid', this.API_key);
-
-    return this.http.get<WeatherResponse>(`${this.WEATHER_API}/onecall`, { params: searchParameters }).pipe(
-      map(res => res.daily.slice(0, 5).map((data: DailyWeather) => this.getFilteredData(data))),
-      // map(res => res?.daily),
-      // filter((day, idx) => { if(idx < 5) return day; }),
-      catchError(this.handleError),
-      tap(console.log),
       shareReplay()
     );
   }
@@ -53,9 +39,10 @@ export class SearchService {
     return throwError(errorMessage);
   }
 
-  private getFilteredData(weatherData: DailyWeather): Partial<DailyWeather> {
-    const { dt, temp, weather } = weatherData;
-    return { dt, temp, weather };
+  private getFilteredData(res: WeatherApiResponse): ForecastAndTimezone {
+    const { list, city } = res;
+    const { timezone } = city;
+    return { city, list, timezone };
   }
 
 }
