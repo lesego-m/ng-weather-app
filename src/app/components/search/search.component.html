@@ -8,7 +8,7 @@
       aria-label="Search city"
     />
     <button
-      class="btn btn-outline-secondary"
+      class="btn btn-primary"
       type="button"
       (click)="search()"
       [disabled]="!form.valid"
@@ -18,8 +18,10 @@
   </div>
 </form>
 
-<ng-container *ngIf="searchResults$ | async as data">
-  <div>
-    {{ data | json }}
-  </div>
+<ng-container *ngIf="searchResults$ | async as days">
+  <ul>
+    <li *ngFor="let day of days; first as isFirst">
+      {{ day.dt | internationalDate: timeZone | date: "EE, d MMM" }}
+    </li>
+  </ul>
 </ng-container>

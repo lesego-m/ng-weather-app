@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, filter, map, shareReplay, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { WeatherResponse, DailyWeather, CoodinatesResponse, Coodinates, Api } from '../models';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class SearchService {
 
   private readonly API_key: string = Api.KEY;
   private readonly WEATHER_API: string = Api.URL;
-
+  public timezone!: number | undefined;
   constructor(private http: HttpClient) { }
 
   public searchByCity(city: string): Observable<Coodinates> {
@@ -19,6 +19,7 @@ export class SearchService {
     const searchParameters = new HttpParams().set('q', city).set('appid', this.API_key);
 
     return this.http.get<CoodinatesResponse>(`${this.WEATHER_API}/weather`, { params: searchParameters }).pipe(
+      tap(res => this.timezone = res['timezone']),
       map(res => res?.coord), // Recommended replacement for pluck as per rxjs docs since pluck is soon to be depreciated
       catchError(this.handleError),
       tap(console.log),
@@ -26,12 +27,12 @@ export class SearchService {
     );
   }
 
-  public searchByCoodinates(coords: Coodinates): Observable<DailyWeather> {
+  public searchByCoodinates(coords: Coodinates): Observable<DailyWeather[]> {
     const searchParameters = new HttpParams().set('lon', coords.lon).set('lat', coords.lat).set('exclude', 'current, minutely, hourly, alerts').set('appid', this.API_key);
 
     return this.http.get<WeatherResponse>(`${this.WEATHER_API}/onecall`, { params: searchParameters }).pipe(
-      // map(res => res?.daily.slice(0, 5).map((data: DailyWeather) => this.getFilteredData(data))),
-      map(res => res?.daily),
+      map(res => res?.daily.slice(0, 5).map((data: DailyWeather) => this.getFilteredData(data))),
+      // map(res => res?.daily),
       // filter((day, idx) => { if(idx < 5) return day; }),
       catchError(this.handleError),
       tap(console.log),
