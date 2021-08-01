@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { groupBy, mergeMap, tap, map, toArray, concatMap } from 'rxjs/operators';
 
-import { Coodinates, ForecastAndTimezone, DefaultCoordinates, Forecast, CityInfo } from 'src/app/models';
+import { Coodinates, ForecastAndTimezone, DefaultCoordinates, Forecast, CityInfo, Weekdays } from 'src/app/models';
 import { SearchService } from 'src/app/services/search.service';
 import { groupForecastByDay } from 'src/app/shared';
 
@@ -21,7 +21,6 @@ export class SearchComponent implements OnInit {
 
   public searchResults$!: Observable<CityInfo>;
   public weather$!: Observable<Forecast[][]>;
-  public timeZone!: string;
 
   public form: FormGroup = this.formBuilder.group({
     search: ['', [Validators.required, Validators.pattern(/^[a-z\sA-Z]+$/)]]
@@ -34,9 +33,10 @@ export class SearchComponent implements OnInit {
     this.getCurrentLocation();
   }
 
-  search(): void {
+  search(): boolean {
     const searchText = this.form.value.search;
     this.searchResults$ = this.getSearchResults(searchText);
+    return false; // prevent page refresh
   }
 
   private getCurrentLocation(): void {
@@ -77,7 +77,10 @@ export class SearchComponent implements OnInit {
       mergeMap((group$) => group$.pipe(
         toArray())
       )
-    ).pipe(toArray(), tap(console.log));
+    ).pipe(
+      toArray(),
+      map(days => days.slice(0, Weekdays.limit)),
+      tap(console.log));
   }
 
   //this.messages.showErrors(errorMessage); ---
