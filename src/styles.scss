@@ -29,10 +29,23 @@ $enable-gradients: true;
 $enable-shadows: true;
 
 // Customize some defaults
-$body-color: #333;
-$body-bg: #fff;
+$white: #fff;
+$body-color: $white;
+$body-bg: #244d72;
 $border-radius: 0.4rem;
-$success: #7952b3;
+$border-radius-lg: 4rem;
+$card-bg: rgba($white, 0.15);
+$input-color: #333;
+$primary: $white;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 550px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
@@ -77,20 +90,10 @@ $success: #7952b3;
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-// Utilities
-// @import "bootstrap/scss/bootstrap/scss/utilities";
-// scss-docs-end import-stack
-//
-// Custom styles
-//
-
-//@import "bootstrap/scss/icon-list";
-
 body {
-  padding: 3rem 1.5rem;
-}
-
-// Style Bootstrap icons
-.bi {
-  fill: currentColor;
+  background-color: #244d72;
+  background: linear-gradient(180deg, rgba(#244d72, 70%), rgba(#07213b, 100%))
+    no-repeat;
+  background-size: contain;
+  min-height: 100vh;
 }

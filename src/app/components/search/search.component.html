@@ -1,50 +1,40 @@
-<form [formGroup]="form">
-  <div class="input-group input-group-lg">
-    <input
-      class="form-control"
-      type="search"
-      placeholder="Search for city"
-      formControlName="search"
-      aria-label="Search city"
-    />
-    <button
-      class="btn btn-primary"
-      type="submit"
-      (click)="search()"
-      [disabled]="!form.valid"
-    >
-      Search
-    </button>
+<div class="row justify-content-center">
+  <div class="col col-md-6">
+    <form [formGroup]="form">
+      <div class="input-group input-group-lg">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search for city"
+          formControlName="search"
+          aria-label="Search city"
+        />
+        <button
+          class="btn btn-primary"
+          type="submit"
+          (click)="search()"
+          [disabled]="!form.valid"
+        >
+          <fa-icon [icon]="['fas', 'search']" size="lg"></fa-icon>
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 
-<section class="p-5" *ngIf="searchResults$ | async as city">
-  <h2>{{ city.name }}</h2>
-  {{ city | json }}
-  <section class="py-5" *ngIf="weather$ | async as days">
-    <ul class="list-unstyled row justify-content-center">
-      <ng-container *ngFor="let date of days">
-        <ng-container *ngFor="let day of date; first as isFirst">
-          <li *ngIf="isFirst" class="col-sm-4 col-md-3 col-lg">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-title">
-                  {{
-                    date === days[0]
-                      ? "Today"
-                      : (day.dt | convertDate | date: "EE d")
-                  }}
-                </p>
-                <p>
-                  <strong> {{ day.main.temp_max | temperature: "C" }}</strong
-                  ><br />
-                  {{ day.main.temp_min | temperature: "C" }}
-                </p>
-              </div>
-            </div>
-          </li>
-        </ng-container>
-      </ng-container>
-    </ul>
-  </section>
+<section
+  class="py-md-3 text-center text-sm-start"
+  *ngIf="searchResults$ | async as data"
+>
+  <div class="row justify-content-center">
+    <div class="col col-md-10">
+      <h2 class="pt-3 h3 fw-normal">
+        {{ data.city.name + ", " + data.city.country }}
+      </h2>
+
+      <app-current-day [today]="data.list[0]"></app-current-day>
+    </div>
+  </div>
+
+  <app-future-days [days]="data.list"></app-future-days>
 </section>
