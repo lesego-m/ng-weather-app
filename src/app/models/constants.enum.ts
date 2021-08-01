@@ -11,3 +11,7 @@ export enum TemperatureUnits {
 export enum UnixConverter {
     rate = 1000
 }
+
+export enum Weekdays {
+    limit = 5
+}
