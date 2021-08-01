@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col col-md-10">
+  <div class="col col-md-6">
     <form [formGroup]="form">
       <div class="input-group input-group-lg">
         <input
@@ -15,7 +15,7 @@
           (click)="search()"
           [disabled]="!form.valid"
         >
-          Search
+          <fa-icon [icon]="['fas', 'search']" size="lg"></fa-icon>
         </button>
       </div>
     </form>
@@ -25,7 +25,9 @@
 <section class="py-md-3" *ngIf="searchResults$ | async as data">
   <div class="row justify-content-center">
     <div class="col col-md-10">
-      <h2 class="py-3">{{ data.city.name + ", " + data.city.country }}</h2>
+      <h2 class="pt-3 h3 fw-normal">
+        {{ data.city.name + ", " + data.city.country }}
+      </h2>
 
       <app-current-day [today]="data.list[0]"></app-current-day>
     </div>
