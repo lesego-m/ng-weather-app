@@ -35,8 +35,8 @@ export class SearchComponent implements OnInit {
   }
 
   search(): void {
-    const searchText: string = this.form.value.search;
-    this.searchResults$ = this.searchService.weatherSearch(searchText).pipe(map(data => data.city));
+    const searchText = this.form.value.search;
+    this.searchResults$ = this.getSearchResults(searchText);
   }
 
   private getCurrentLocation(): void {
@@ -65,8 +65,7 @@ export class SearchComponent implements OnInit {
   private getSearchResults(search: string | Coodinates): Observable<CityInfo> {
     return this.searchService.weatherSearch(search).pipe(
       tap(data => this.weather$ = this.getForecastList(data)),
-      map(data => data.city),
-      //tap(city => this.timeZone = city.timezone.toString())
+      map(data => data.city)
     );
   }
 

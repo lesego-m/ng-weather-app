@@ -9,7 +9,7 @@
     />
     <button
       class="btn btn-primary"
-      type="submit"
+      type="button"
       (click)="search()"
       [disabled]="!form.valid"
     >
@@ -21,7 +21,7 @@
 <section class="p-5" *ngIf="searchResults$ | async as city">
   {{ city | json }}
 </section>
-<section class="p-5" *ngIf="weather$ | async as days">
+<section class="py-5" *ngIf="weather$ | async as days">
   <ul class="list-unstyled row border">
     <ng-container *ngFor="let date of days">
       <ng-container *ngFor="let day of date; first as isFirst">
@@ -29,7 +29,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
-                {{ day.dt | internationalDate: timeZone | date: "EE, d" }}
+                {{ day.dt | convertDate | date: "EE d MMM yyyy, h:mm a" }}
               </h5>
               <p>
                 <strong> {{ day.main.temp_max | temperature: "C" }}</strong

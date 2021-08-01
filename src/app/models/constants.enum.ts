@@ -7,3 +7,7 @@ export enum TemperatureUnits {
     F = 'F',
     C = 'C',
 }
+
+export enum UnixConverter {
+    rate = 1000
+}

@@ -1,4 +1,4 @@
-import { CityInfo, Forecast } from './';
+import { CityInfo, Forecast } from '.';
 
 export interface WeatherApiResponse {
     city: CityInfo;
