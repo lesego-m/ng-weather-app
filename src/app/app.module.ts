@@ -6,14 +6,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './components/search/search.component';
-import { InternationalDatePipe } from './pipes/internationalDatePipe.pipe';
+import { ConvertDatePipe } from './pipes/convert-date.pipe';
 import { TemperaturePipe } from './pipes/temperature.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    InternationalDatePipe,
+    ConvertDatePipe,
     TemperaturePipe
   ],
   imports: [
