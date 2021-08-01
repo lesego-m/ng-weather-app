@@ -1,16 +1,20 @@
-<div class="card col col-md-8">
+<div class="card">
   <div class="card-body">
     <h3 class="card-title mb-0">Current Weather</h3>
     <small class="d-block fw-bold">
       {{ today.dt | convertDate | date: "EE d MMM y" }}
     </small>
-    <div class="d-flex align-items-center mt-3">
-      <div class="w-50">
+    <div class="row align-items-center mt-3">
+      <div class="col-12 col-md-6">
         <p class="h1">
+          <fa-icon
+            [icon]="['fas', today.weather[0].icon | icons]"
+            size="lg"
+          ></fa-icon>
           <strong> {{ today.main.temp | temperature: "C" }}</strong>
         </p>
       </div>
-      <div class="w-50">
+      <div class="col-12 col-md-6">
         <p>
           <span class="d-block">
             {{ today.weather[0].description }}

@@ -7,7 +7,6 @@ import { Forecast } from 'src/app/models';
   styleUrls: ['./current-day.component.scss']
 })
 export class CurrentDayComponent implements OnInit {
-
   @Input()
   today!: Forecast;
 

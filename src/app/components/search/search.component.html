@@ -1,30 +1,35 @@
-<form [formGroup]="form">
-  <div class="input-group input-group-lg">
-    <input
-      class="form-control"
-      type="search"
-      placeholder="Search for city"
-      formControlName="search"
-      aria-label="Search city"
-    />
-    <button
-      class="btn btn-primary"
-      type="submit"
-      (click)="search()"
-      [disabled]="!form.valid"
-    >
-      Search
-    </button>
+<div class="row justify-content-center">
+  <div class="col col-md-10">
+    <form [formGroup]="form">
+      <div class="input-group input-group-lg">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search for city"
+          formControlName="search"
+          aria-label="Search city"
+        />
+        <button
+          class="btn btn-primary"
+          type="submit"
+          (click)="search()"
+          [disabled]="!form.valid"
+        >
+          Search
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 
-<section class="p-md-5" *ngIf="searchResults$ | async as data">
-  <h2>{{ data.city.name + ", " + data.city.country }}</h2>
-  <section class="py-5">
-    <div class="row justify-content-center">
+<section class="py-md-3" *ngIf="searchResults$ | async as data">
+  <div class="row justify-content-center">
+    <div class="col col-md-10">
+      <h2 class="py-3">{{ data.city.name + ", " + data.city.country }}</h2>
+
       <app-current-day [today]="data.list[0]"></app-current-day>
     </div>
+  </div>
 
-    <app-future-days [days]="data.list"></app-future-days>
-  </section>
+  <app-future-days [days]="data.list"></app-future-days>
 </section>
