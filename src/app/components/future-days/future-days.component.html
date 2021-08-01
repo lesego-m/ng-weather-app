@@ -12,14 +12,14 @@
               }}
             </p>
             <div class="row align-items-center mt-3">
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p class="h1">
                   <fa-icon
                     [icon]="['fas', day.weather[0].icon | icons]"
                   ></fa-icon>
                 </p>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <p>
                   <span class="d-block fw-bold">
                     {{ day.main.temp_max | temperature: "C" }}
