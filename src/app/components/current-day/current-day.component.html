@@ -1,0 +1,25 @@
+<div class="card col col-md-8">
+  <div class="card-body">
+    <h3 class="card-title mb-0">Current Weather</h3>
+    <small class="d-block fw-bold">
+      {{ today.dt | convertDate | date: "EE d MMM y" }}
+    </small>
+    <div class="d-flex align-items-center mt-3">
+      <div class="w-50">
+        <p class="h1">
+          <strong> {{ today.main.temp | temperature: "C" }}</strong>
+        </p>
+      </div>
+      <div class="w-50">
+        <p>
+          <span class="d-block">
+            {{ today.weather[0].description }}
+          </span>
+          <span class="d-block">
+            Feels Like {{ today.main.feels_like | temperature: "C" }}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@ export interface Forecast {
     pop: number;
     sys: { pod: string };
     visibility: number;
-    weather: Weather;
+    weather: Weather[];
     wind: Wind;
 }
 

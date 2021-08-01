@@ -1,0 +1,24 @@
+<ul class="list-unstyled row justify-content-center">
+  <ng-container *ngFor="let date of weather$ | async as days">
+    <ng-container *ngFor="let day of date; first as isFirst">
+      <li *ngIf="isFirst" class="col-6 col-sm-4 col-md-4 col-lg">
+        <div class="card mt-4">
+          <div class="card-body">
+            <p class="card-title">
+              {{
+                date === days[0]
+                  ? "Today"
+                  : (day.dt | convertDate | date: "EE d")
+              }}
+            </p>
+            <p>
+              <strong> {{ day.main.temp_max | temperature: "C" }}</strong
+              ><br />
+              {{ day.main.temp_min | temperature: "C" }}
+            </p>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+  </ng-container>
+</ul>
