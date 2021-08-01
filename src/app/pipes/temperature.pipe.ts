@@ -5,7 +5,7 @@ import { TemperatureUnits } from '../models';
     name: 'temperature'
 })
 export class TemperaturePipe implements PipeTransform {
-    transform(temperature: number, unit: string): number {
+    transform(temperature: number, unit: string): string {
 
         const getCelsius = (temp: number) => temp - 273.15; // Kelvin to Celsius
         const getFahrenheit = (temp: number) => (temp - 273.15) * (9 / 5) + 32; // Kelvin to Fahrenheit
@@ -19,6 +19,6 @@ export class TemperaturePipe implements PipeTransform {
             convertedTemp = getFahrenheit(temperature);
         }
 
-        return Math.floor(convertedTemp);
+        return `${Math.floor(convertedTemp)} °${unit}`;
     }
 }
