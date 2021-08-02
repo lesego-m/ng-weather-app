@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   Api: {
     URL: 'https://api.openweathermap.org/data/2.5',
-    KEY: 'xxxxxxx'
+    KEY: 'YOUR-API-KEY-GOES-HERE'
   }
 };
 
