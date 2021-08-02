@@ -1,27 +1,50 @@
-# NgWeatherApp
+# Angular Simple Weather App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+This simple Location and Weather app is built using Angular 12 which uses Webpack and Jasmine under the hood.
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- node - [nodejs.org/en/download](https://nodejs.org/en/download/)
+- angular cli - `npm install -g @angular/cli`
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+```
+git clone https://github.com/lesego-m/ng-weather-app.git
+cd ng-weather-app
+npm i
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+You will need an API key to run this app locally on your machine. Register at [openweathermap.org](https://openweathermap.org) to get your key then add it to the `environment.ts` file in the environments folder in the root directory:
 
-## Running unit tests
+```
+Api: {
+    URL: 'https://api.openweathermap.org/data/2.5',
+    KEY: 'YOUR-API-KEY-GOES-HERE'
+  }
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run the app loacally
+`ng serve`
 
-## Running end-to-end tests
+## Features
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Search by city or country name
+- Show min and max temperatures
+- Styled with latest Bootstrap 5 sass
+- Fully Responsive layout
 
-## Further help
+## 3rd Pary
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- OpenWeather forecast 5 API - [openweathermap.org/forecast5](https://openweathermap.org/forecast5)
+- Bootstrap 5x - [getbootstrap.com](https://getbootstrap.com/)
+- Free Angular Font Awesome 5 - `ng add @fortawesome/angular-fontawesome@0.9.0`
+
+## Additional work still pending
+
+- Tests using Jasmine
+- User feedback when data is being fetched from API (eg, spinner)
+- Remove error message when user starts to type in search field again
+- Typeahead on search feature to enhance user experience
+
