@@ -31,6 +31,7 @@ Run the app loacally
 ## Features
 
 - Search by city or country name
+- Submit disabled for non alphabetical characters
 - Show min and max temperatures
 - Styled with latest Bootstrap and FontAwesome Icons libraries
 - Fully Responsive layout
@@ -47,6 +48,7 @@ Run the app loacally
 - Tests using Jasmine
 - User feedback when data is being fetched from API (eg, spinner)
 - Remove error message when user starts to type in search field again
+- Add error messages for when a user enters numbers in the search form
 
 ### Medium Priority
 - Typeahead on search feature to enhance user experience
