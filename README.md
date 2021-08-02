@@ -1,6 +1,6 @@
 # Angular Simple Weather App
 
-This simple Location and Weather app is built using Angular 12 which uses Webpack and Jasmine under the hood.
+This simple Location and Weather app is built using Angular 12 which uses Webpack and Jasmine under the hood. The UI was inspired by [https://www.msn.com/en-za/weather](https://www.msn.com/en-za/weather)
 
 ## Requirements
 
@@ -32,7 +32,7 @@ Run the app loacally
 
 - Search by city or country name
 - Show min and max temperatures
-- Styled with latest Bootstrap 5 sass
+- Styled with latest Bootstrap and FontAwesome Icons libraries
 - Fully Responsive layout
 
 ## 3rd Pary
