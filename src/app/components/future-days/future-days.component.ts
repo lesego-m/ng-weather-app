@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { groupBy, mergeMap, tap, map, toArray, concatMap } from 'rxjs/operators';
+import { groupBy, mergeMap, map, toArray, concatMap } from 'rxjs/operators';
 
 import { Forecast, Weekdays } from 'src/app/models';
 import { groupForecastByDay } from 'src/app/shared';
@@ -32,7 +32,6 @@ export class FutureDaysComponent implements OnInit {
       )
     ).pipe(
       toArray(),
-      map(days => days.slice(0, Weekdays.limit)),
-      tap(console.log));
+      map(days => days.slice(0, Weekdays.limit)));
   }
 }

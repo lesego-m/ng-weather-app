@@ -1,0 +1,15 @@
+<ng-container *ngIf="errorMessage$ | async as error">
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+    *ngIf="showError"
+  >
+    <strong>Oops!</strong> {{ error }}
+    <button
+      type="button"
+      class="btn-close"
+      (click)="close()"
+      aria-label="Close"
+    ></button>
+  </div>
+</ng-container>
