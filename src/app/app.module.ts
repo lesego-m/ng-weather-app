@@ -13,6 +13,8 @@ import { TemperaturePipe } from './pipes/temperature.pipe';
 import { IconsPipe } from './pipes/icons.pipe';
 import { CurrentDayComponent } from './components/current-day/current-day.component';
 import { FutureDaysComponent } from './components/future-days/future-days.component';
+import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
+import { ErrorsService } from './services/errors.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { FutureDaysComponent } from './components/future-days/future-days.compon
     TemperaturePipe,
     IconsPipe,
     CurrentDayComponent,
-    FutureDaysComponent
+    FutureDaysComponent,
+    ErrorMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,10 @@ import { FutureDaysComponent } from './components/future-days/future-days.compon
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [SearchService],
+  providers: [
+    SearchService,
+    ErrorsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

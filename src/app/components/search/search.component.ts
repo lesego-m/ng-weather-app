@@ -5,11 +5,6 @@ import { Observable } from 'rxjs';
 import { Coodinates, ForecastAndTimezone, DefaultCoordinates } from 'src/app/models';
 import { SearchService } from 'src/app/services/search.service';
 
-export interface people {
-  age: number,
-  name: string
-}
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -23,7 +18,9 @@ export class SearchComponent implements OnInit {
     search: ['', [Validators.required, Validators.pattern(/^[a-z\sA-Z]+$/)]]
   });
 
-  constructor(private searchService: SearchService, private formBuilder: FormBuilder) {
+  constructor(
+    private searchService: SearchService,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -45,7 +42,7 @@ export class SearchComponent implements OnInit {
       (userPosition: GeolocationPosition) => {
         const { latitude, longitude } = userPosition.coords;
         const userCoordinates = { lat: latitude, lon: longitude };
-        console.info(`User allowed location access. Position: ${latitude}, ${longitude}`, userPosition);
+        console.info(`User allowed location access. Position: ${latitude}, ${longitude}`);
 
         this.searchResults$ = this.searchService.weatherSearch(userCoordinates);
       },
