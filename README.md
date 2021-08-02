@@ -43,8 +43,12 @@ Run the app loacally
 
 ## Additional work still pending
 
+### High Priority
 - Tests using Jasmine
 - User feedback when data is being fetched from API (eg, spinner)
 - Remove error message when user starts to type in search field again
+
+### Medium Priority
 - Typeahead on search feature to enhance user experience
+- Add a &deg;C and &deg;F toggle button
 
