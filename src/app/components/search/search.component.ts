@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { Coodinates, ForecastAndTimezone, DefaultCoordinates } from 'src/app/models';
+import { Coodinates, Weather, DefaultCoordinates } from 'src/app/models';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { SearchService } from 'src/app/services/search.service';
 })
 export class SearchComponent implements OnInit {
 
-  public searchResults$!: Observable<ForecastAndTimezone>;
+  public searchResults$!: Observable<Weather>;
 
   public form: FormGroup = this.formBuilder.group({
     search: ['', [Validators.required, Validators.pattern(/^[a-z\sA-Z]+$/)]]

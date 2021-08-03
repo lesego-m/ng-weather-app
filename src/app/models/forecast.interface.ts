@@ -19,7 +19,7 @@ interface Weather {
 
 interface Wind {
     deg: number;
-    dust: number;
+    gust: number;
     speed: number;
 }
 
