@@ -4,6 +4,7 @@ export interface Forecast {
     dt_txt: string;
     main: CurrentWeather;
     pop: number;
+    rain?: {'3h': number}
     sys: { pod: string };
     visibility: number;
     weather: Weather[];
