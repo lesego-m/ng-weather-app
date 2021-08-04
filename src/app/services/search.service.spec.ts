@@ -22,9 +22,9 @@ const testApiUrl = (params: string) => `${environment.Api.URL}/forecast?${params
 
 describe('SearchService', () => {
 
-  let searchService: SearchService,
-    httpTestingController: HttpTestingController,
-    errorSpy: any;
+  let searchService: SearchService;
+  let httpTestingController: HttpTestingController;
+  let errorSpy: any;
 
   beforeEach(() => {
     errorSpy = jasmine.createSpyObj('ErrorsService', ['displayMessage']);
@@ -97,6 +97,7 @@ describe('SearchService', () => {
   // Testing private method
   it('should filter weather response data returning only city and list data', () => {
     const filteredWeatherData = searchService['getFilteredData'](WEATHER_MOCK_DATA);
+    expect(filteredWeatherData.list?.length).withContext('Could not log list total').toBe(40);
     expect(Object.keys(filteredWeatherData)).withContext('Could not filter data').toEqual(['city', 'list']);
   });
 
