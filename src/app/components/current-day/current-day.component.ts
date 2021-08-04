@@ -10,6 +10,9 @@ export class CurrentDayComponent implements OnInit {
   @Input()
   today!: Forecast;
 
+  currentWeatherTitle: string = 'Current Weather';
+  feelsLike: string = 'Feels Like';
+
   constructor() { }
 
   ngOnInit(): void {
