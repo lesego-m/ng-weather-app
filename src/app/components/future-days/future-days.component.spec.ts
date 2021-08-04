@@ -1,5 +1,5 @@
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { WEATHER_MOCK_DATA } from 'src/app/models';
 import { IconsModule } from 'src/app/modules/icons/icons.module';
@@ -13,7 +13,7 @@ describe('FutureDaysComponent', () => {
   let fixture: ComponentFixture<FutureDaysComponent>;
   let element: DebugElement;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [IconsModule],
       declarations: [
@@ -29,7 +29,7 @@ describe('FutureDaysComponent', () => {
       component = fixture.componentInstance;
       element = fixture.debugElement;
     });
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -60,12 +60,11 @@ describe('FutureDaysComponent', () => {
 
     component.days = WEATHER_MOCK_DATA.list;
     fixture.detectChanges();
-
     const futureDay = element.query(By.css('.future-day:last-child'));
     const date = futureDay.query(By.css('.future-day__date')).nativeElement.textContent.trim();
     const icon = futureDay.query(By.css('.future-day__icon>svg')).nativeElement.getAttribute('data-icon');
-    const maxTemp = futureDay.query(By.css('.future-day__max-temp')).nativeElement.textContent.trim();;
-    const minTemp = futureDay.query(By.css('.future-day__min-temp')).nativeElement.textContent.trim();;
+    const maxTemp = futureDay.query(By.css('.future-day__max-temp')).nativeElement.textContent.trim();
+    const minTemp = futureDay.query(By.css('.future-day__min-temp')).nativeElement.textContent.trim();
 
     expect(futureDay).withContext('Could not render last day to the UI').toBeTruthy();
     expect(date).withContext(`Incorrect day shown`).toBe('Sat 7');

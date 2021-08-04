@@ -10,7 +10,7 @@ import { SearchService } from 'src/app/services/search.service';
 
 import { SearchComponent, NAVIGATOR } from './search.component';
 
-fdescribe('SearchComponent', () => {
+describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let fakeSearchService: Pick<SearchService, keyof SearchService>;
@@ -68,7 +68,7 @@ fdescribe('SearchComponent', () => {
     const searchForm = element.query(By.css('form'));
     const searchValues = component.form.setValue({ search: searchTerm});
     searchForm.triggerEventHandler('submit', searchValues);
-    expect(fakeSearchService.weatherSearch).toHaveBeenCalledOnceWith(searchTerm);
+    expect(fakeSearchService.weatherSearch).withContext('Search by city name failed').toHaveBeenCalledOnceWith(searchTerm);
 
   });
 

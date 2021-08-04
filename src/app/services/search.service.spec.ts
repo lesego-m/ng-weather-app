@@ -50,6 +50,8 @@ describe('SearchService', () => {
       expect(data).withContext('No weather data').toBeTruthy();
       expect(timezone).withContext('No timezone found').toBe(7200);
       expect(coord).withContext('No coordinates found').toEqual(searchQueryTest.coordinates);
+      expect(data.list?.length).withContext('Could not log list total').toBe(40);
+      expect(Object.keys(data)).withContext('Could not filter data').toEqual(['city', 'list']);
       done();
     });
 
@@ -66,6 +68,8 @@ describe('SearchService', () => {
       expect(data).withContext('No weather data').toBeTruthy();
       expect(name).withContext('No city name found').toBe(searchQueryTest.cityName);
       expect(timezone).withContext('No timezone found').toBe(7200);
+      expect(data.list?.length).withContext('Could not log list total').toBe(40);
+      expect(Object.keys(data)).withContext('Could not filter data').toEqual(['city', 'list']);
       done();
     });
 
@@ -75,30 +79,21 @@ describe('SearchService', () => {
 
   });
 
-  it('should show an error when the search input data is wrong', () => {
+  it('should show an error when the search input data is wrong', (done: DoneFn) => {
 
     searchService.weatherSearch(searchQueryTest.notFound).subscribe(
-      () => fail('the searched city is not found'),
+      () => fail('the searched city does not exist'),
 
       (error: HttpErrorResponse) => {
-        const _errorHandlerMethod = searchService['handleError'](error);
-        expect(error.status).toBe(404);
-        expect(errorSpy.displayMessage).withContext('Errors Service method: Called more than once or not at all').toHaveBeenCalledTimes(1);
-        expect(errorSpy.displayMessage).withContext('Errors Service method: Could not show error message').toContain('An error occurred');
-        expect(_errorHandlerMethod).withContext('Private Errors Method: Could not show error message').toContain('Server returned code: 404');
+        expect(error.status).withContext('Failed to throw 404 error').toBe(404);
+        expect(errorSpy.displayMessage).withContext(`displayMessage() should execute once`).toHaveBeenCalledTimes(1);
+        done();
       });
 
     const req = httpTestingController.expectOne(testApiUrl(searchParamsTest.notFound));
     expect(req.request.method).toEqual('GET');
     req.flush('Get weather data failed', { status: 404, statusText: 'city not found' });
 
-  });
-
-  // Testing private method
-  it('should filter weather response data returning only city and list data', () => {
-    const filteredWeatherData = searchService['getFilteredData'](WEATHER_MOCK_DATA);
-    expect(filteredWeatherData.list?.length).withContext('Could not log list total').toBe(40);
-    expect(Object.keys(filteredWeatherData)).withContext('Could not filter data').toEqual(['city', 'list']);
   });
 
   afterEach(() => {
