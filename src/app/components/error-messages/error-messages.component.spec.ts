@@ -2,7 +2,6 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
 
 import { ErrorMessagesComponent } from './error-messages.component';
 
