@@ -27,7 +27,7 @@ Api: {
 
 Run the app loacally
 ```
-ng serve`
+ng serve
 ```
 
 Run unit tests
