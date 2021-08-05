@@ -26,7 +26,14 @@ Api: {
 ```
 
 Run the app loacally
-`ng serve`
+```
+ng serve`
+```
+
+Run unit tests
+```
+ng test
+```
 
 ## Features
 
@@ -45,7 +52,6 @@ Run the app loacally
 ## Additional work still pending
 
 ### High Priority
-- Tests using Jasmine
 - User feedback when data is being fetched from API (eg, spinner)
 - Remove error message when user starts to type in search field again
 - Add error messages for when a user enters numbers in the search form
