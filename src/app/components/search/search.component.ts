@@ -40,19 +40,18 @@ export class SearchComponent implements OnInit {
   }
 
   getCurrentLocation(): void {
-    this.navigator.geolocation.getCurrentPosition(
+    return this.navigator.geolocation.getCurrentPosition(
       (userPosition: GeolocationPosition) => {
         const { latitude, longitude } = userPosition.coords;
         const userCoordinates = { lat: latitude, lon: longitude };
-        console.info(`User allowed location access. Position: ${latitude}, ${longitude}`);
 
         this.searchResults$ = this.searchService.weatherSearch(userCoordinates);
       },
       (error: GeolocationPositionError) => {
         const { code, message } = error;
         const defaultCoordinates: Coodinates = { lat: DefaultCoordinates.lat, lon: DefaultCoordinates.lon };
-        console.error(`User rejected location access code: ${code}, error message is: ${message}`);
         this.searchResults$ = this.searchService.weatherSearch(defaultCoordinates);
+
       }
     );
   }

@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { from, of } from 'rxjs';
@@ -51,6 +51,21 @@ describe('SearchComponent', () => {
     done();
 
   });
+
+
+  it('should get user coodinates', fakeAsync((done: DoneFn) => {
+
+    navigator.geolocation.getCurrentPosition(location => {
+      expect(location.coords).withContext('Geolocation was not triggered').toBeTruthy();
+      done();
+    },
+    error => {
+      expect(error.code).toBe(1);
+    });
+
+    flushMicrotasks();
+
+  }));
 
   it('should display the search form', () => {
 

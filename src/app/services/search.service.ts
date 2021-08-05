@@ -35,14 +35,7 @@ export class SearchService {
   }
 
   private handleError(err: HttpErrorResponse) {
-    let userErrorMessage: string = '';
-
-    if (err.error instanceof ErrorEvent) {
-      userErrorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      userErrorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-
+    let userErrorMessage: string = `An error occurred: ${err.error.message}`;
     this.errorsService.displayMessage(userErrorMessage);
     return throwError(err);
   }

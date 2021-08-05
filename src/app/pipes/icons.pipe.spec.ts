@@ -1,7 +1,7 @@
 import { IconsPipe } from "./icons.pipe";
 import { WEATHER_MOCK_DATA } from 'src/app/models';
 
-describe('ConvertDatePipe', () => {
+describe('ConvertIconsPipe', () => {
 
   const pipe = new IconsPipe();
   const weatherIcon: string = WEATHER_MOCK_DATA.list[0].weather[0].icon;

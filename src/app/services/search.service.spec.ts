@@ -43,7 +43,7 @@ describe('SearchService', () => {
     expect(searchService).toBeTruthy();
   });
 
-  it('should return a Weather data object from a city name query', (done: DoneFn) => {
+  it('should return a Weather data object from a city name query', () => {
 
     searchService.weatherSearch(searchQueryTest.cityName).subscribe(data => {
       const { coord, timezone } = data.city;
@@ -52,7 +52,6 @@ describe('SearchService', () => {
       expect(coord).withContext('No coordinates found').toEqual(searchQueryTest.coordinates);
       expect(data.list?.length).withContext('Could not log list total').toBe(40);
       expect(Object.keys(data)).withContext('Could not filter data').toEqual(['city', 'list']);
-      done();
     });
 
     const req = httpTestingController.expectOne(testApiUrl(searchParamsTest.cityName));
@@ -61,7 +60,7 @@ describe('SearchService', () => {
 
   });
 
-  it('should return a Weather data object from a location coordinates query', (done: DoneFn) => {
+  it('should return a Weather data object from a location coordinates query', () => {
 
     searchService.weatherSearch(searchQueryTest.coordinates).subscribe(data => {
       const { name, timezone } = data.city;
@@ -70,7 +69,6 @@ describe('SearchService', () => {
       expect(timezone).withContext('No timezone found').toBe(7200);
       expect(data.list?.length).withContext('Could not log list total').toBe(40);
       expect(Object.keys(data)).withContext('Could not filter data').toEqual(['city', 'list']);
-      done();
     });
 
     const req = httpTestingController.expectOne(testApiUrl(searchParamsTest.coordinates));
@@ -79,15 +77,15 @@ describe('SearchService', () => {
 
   });
 
-  it('should show an error when the search input data is wrong', (done: DoneFn) => {
+  it('should show an error when the search input data is wrong', () => {
 
     searchService.weatherSearch(searchQueryTest.notFound).subscribe(
       () => fail('the searched city does not exist'),
 
       (error: HttpErrorResponse) => {
+        expect(error.error).withContext('Failed to throw 404 error').toBe('Get weather data failed');
         expect(error.status).withContext('Failed to throw 404 error').toBe(404);
         expect(errorSpy.displayMessage).withContext(`displayMessage() should execute once`).toHaveBeenCalledTimes(1);
-        done();
       });
 
     const req = httpTestingController.expectOne(testApiUrl(searchParamsTest.notFound));

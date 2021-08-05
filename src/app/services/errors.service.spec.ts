@@ -33,4 +33,10 @@ describe('ErrorsService', () => {
     });
     done();
   });
+
+  it('should call the display message method', () => {
+    expect(service.displayMessage(searchTerm)).withContext('Failed to display error message').toMatch('');
+  });
+
+
 });
