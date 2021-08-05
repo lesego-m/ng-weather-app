@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { UnixConverter } from '../models';
-
 @Pipe({
     name: 'convertDate'
 })

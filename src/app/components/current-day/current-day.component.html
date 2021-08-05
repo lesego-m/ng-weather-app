@@ -1,7 +1,7 @@
-<div class="card">
+<div class="card current-day">
   <div class="card-body p-md-4">
-    <h3 class="card-title mb-0 fw-normal h5">Current Weather</h3>
-    <small class="d-block fw-bold">
+    <h3 class="card-title mb-0 fw-normal h5 current-day__title">{{ currentWeatherTitle }}</h3>
+    <small class="d-block fw-bold current-day__date">
       {{ today.dt | convertDate | date: "EE d MMM y" }}
     </small>
     <div class="row align-items-center mt-3">
@@ -10,17 +10,18 @@
           <fa-icon
             [icon]="['fas', today.weather[0].icon | icons]"
             size="lg"
+            class="current-day__icon"
           ></fa-icon>
-          <strong> {{ today.main.temp | temperature: "C" }}</strong>
+          <span class="current-day__temp fw-bold"> {{ today.main.temp | temperature: "C" }}</span>
         </p>
       </div>
       <div class="col-12 col-sm-6">
         <p>
-          <span class="d-block">
+          <span class="d-block current-day_description">
             {{ today.weather[0].description }}
           </span>
-          <span class="d-block">
-            Feels Like {{ today.main.feels_like | temperature: "C" }}
+          <span class="d-block current-day__feels-like">
+             {{ feelsLike + " " + (today.main.feels_like | temperature: "C") }}
           </span>
         </p>
       </div>

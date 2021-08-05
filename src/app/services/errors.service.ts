@@ -13,7 +13,7 @@ export class ErrorsService {
     filter(errors => errors.length > 0)
   );
 
-  displayMessage(errors: string) {
+  public displayMessage(errors: string): void {
     this.subject.next(errors);
   }
 }

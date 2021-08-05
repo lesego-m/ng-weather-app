@@ -1,10 +1,10 @@
 <ul class="list-unstyled row justify-content-center">
   <ng-container *ngFor="let date of weather$ | async as days">
     <ng-container *ngFor="let day of date; first as isFirst">
-      <li *ngIf="isFirst" class="col-6 col-sm-4 col-md-3 col-lg-2">
+      <li *ngIf="isFirst" class="future-day col-6 col-sm-4 col-md-3 col-lg-2">
         <div class="card mt-4">
           <div class="card-body">
-            <p class="card-title h6">
+            <p class="card-title h6 future-day__date">
               {{
                 date === days[0]
                   ? "Today"
@@ -14,17 +14,17 @@
             <div class="row align-items-center mt-3">
               <div class="col-sm-6">
                 <p class="h1">
-                  <fa-icon
+                  <fa-icon class="future-day__icon"
                     [icon]="['fas', day.weather[0].icon | icons]"
                   ></fa-icon>
                 </p>
               </div>
               <div class="col-sm-6">
                 <p>
-                  <span class="d-block fw-bold">
+                  <span class="d-block fw-bold future-day__max-temp">
                     {{ day.main.temp_max | temperature: "C" }}
                   </span>
-                  <span class="d-block">
+                  <span class="d-block future-day__min-temp">
                     {{ day.main.temp_min | temperature: "C" }}
                   </span>
                 </p>
