@@ -35,7 +35,7 @@ export class SearchService {
   }
 
   private handleError(err: HttpErrorResponse) {
-    let userErrorMessage: string = `An error occurred: ${err.error.message}`;
+    let userErrorMessage: string = `An error occurred: ${err.status} - ${err.statusText}`;
     this.errorsService.displayMessage(userErrorMessage);
     return throwError(err);
   }
